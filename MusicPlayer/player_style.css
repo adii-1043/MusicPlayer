@@ -1,0 +1,497 @@
+@font-face {
+  font-family: 'GamerFont';
+  src: url('ARCADE.TTF') format('truetype');
+}
+.my-swal-font {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 25px;
+}
+
+
+* {
+    font-family: "GamerFont", sans-serif;
+    color: peachpuff;
+}
+body {
+    /* background-color: rgb(179, 114, 185); */
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    padding: 50px;
+    width: 100%;
+
+    /* for fade in animation when we reload the page */
+    opacity: 0;
+    animation: fadeIn 1.5s forwards;
+}
+/* keyframe for the body fadeIn animation when we reload the page */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+h1, h2, h3, h4, h5 {
+    margin: 0;
+}
+button {
+    cursor: pointer;
+}
+
+main {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    width: 30%;
+    height: 70vh;
+    border: 10px solid transparent; /* Transparent to make room for the animated border */
+    border-radius: 80px;
+    background-color: rgb(61, 54, 54); /* Same as body */
+    margin: 10px;
+    z-index: 1;
+    overflow: hidden;
+}
+main::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    padding: 10px; /* Matches the border thickness */
+    border-radius: 80px;
+    background: linear-gradient(
+      270deg,
+    rgba(119, 101, 101, 0.351),
+    rgba(180, 100, 113, 0.693),
+    rgba(87, 128, 153, 0.671),
+    rgba(119, 101, 101, 0.351)
+    );
+    background-size: 600% 600%;
+    animation: borderFlow 6s ease-in-out infinite;
+    
+    /* for animating the border only */
+    /* -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude; */
+
+    z-index: -1;
+    pointer-events: none;
+}
+@keyframes borderFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* 🎨 Cover art scales smoothly */
+.cover_art {
+    width: 65%;
+    aspect-ratio: 1 / 1; /* keep it a perfect square */
+    margin-bottom: 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    transition: 0.2s ease;
+}
+.cover_art > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.cover_art img.rotating {
+  animation: slowSpin 15s linear infinite;
+  animation-play-state: running; /* default */
+  transform-origin: center;
+}
+
+.cover_art img.paused {
+  animation-play-state: paused;
+}
+
+@keyframes slowSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+.cover_art:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 10px 5px rgb(168, 129, 94);
+}
+.button_controls {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.button_controls > * {
+    width: 30%;
+    background: black;
+    border: none;
+    transition: 0.2s;
+    height: 100%;
+    font-size: 40px;
+    transition: 0.2s ease;
+}
+.button_controls > *:hover {
+    background: black;
+    border-radius: 15px;
+    transform: translateY(-7px);
+}
+
+
+.progress_bar {
+    display: flex;
+    width: 90%;
+    height: 10%;
+    margin-top: 5px;
+    align-items: center;
+    justify-content: center;
+
+}
+.outer_cover{
+    width: 100%;
+    height: 30%;
+    border-radius: 20px;
+    border: 1px solid black;
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+}
+.progress_fill {
+    width: 0%;
+    height: 95%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-right: 5px solid rgb(126, 184, 179);
+    background-color: peachpuff;
+    transition: 0.1s width ease;
+}
+
+/* ⏳ Song details scale and wrap */
+.song_details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    text-align: center;
+    gap: 5px;
+}
+.song_details h1 {
+    margin: 5px 0;
+    font-size: 1.5rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+
+.timestamp{
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+.queue {
+    width: 30%;
+    max-height: 80vh;
+    overflow-y: auto;
+    background-color: rgb(61, 54, 54);
+    border-radius: 20px;
+    margin: 10px;
+
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+}
+.queue::-webkit-scrollbar {        /* Chrome, Safari */
+    display: none;
+}
+.queue > div {
+    position: relative; /* 👈 make it the stacking context */
+    overflow: hidden;
+    width: 90%;
+    height: 80px;
+    flex-shrink: 0;
+    margin: 10px 0;
+    border-radius: 10px;
+    display: flex;
+    font-size: large;
+    padding: 10px;
+}
+.queue-header {
+    border: none !important;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    padding: 30px;
+    position: absolute;
+}
+.queue-header > button {
+    margin-left: 50%;
+    background-color: rgb(61, 54, 54);
+    border: none;
+    font-size: 1.5rem;
+    transition: 0.5s ease;
+    padding: 10px;
+}
+.queue-header > button:hover {
+    transform: rotate(90deg);
+    border-radius: 40%;
+    background-color: rgb(92, 82, 82);
+}
+
+.queue > .song-search {
+  height: 0;
+  padding: 0;
+  margin: 0;
+  transition: opacity 0.5s ease, height 0.5s ease-in-out;
+  overflow: hidden; /* 👈 Good to have for collapsing */
+  justify-content: center;
+  display: none;
+  border: 5px solid lightblue;
+}
+.song-search.active {
+  height: 10vh;
+  display: flex;
+  flex-direction: column; /* 👈 Stack search-bar and search-results vertically */
+  align-items: center;    /* Optional: centers horizontally */
+  position: relative;
+  overflow-y: auto;
+
+  /* the fade-in keyframe animation animation from line */
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+.song-search.expand {
+    height: 68vh;
+}
+
+.queue > .song-search > .search-bar {
+    margin: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 5%;
+    width: 80%;
+    height: 5vh;
+    border-radius: 40px;
+    border: 5px solid black;
+}
+.queue > .song-search > .search-bar > .search-text {
+    margin: 0 20px;
+    background: none;
+    width: 90%;
+    height: 60%;
+    border: none;
+    outline: none;
+    font-size: 25px;
+}
+.search-results {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+}
+.search-results > button {
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    overflow: hidden;
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
+    border-radius: 10px;
+}
+.search-results > button:hover {
+    background: rgba(168, 129, 94, 0.446);
+}
+.search-results > button > img {
+    width: 30%;
+    height: 10vh;
+}
+.search-results > button p {
+    margin: 0 10px;
+}
+
+.queue > .queue-list > .background-img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(3px) brightness(50%);
+    z-index: 1;
+    
+}
+.queue > .queue-list > .song_contents{
+    position: relative;   /* 👈 stays in normal flow, but above bg */
+    z-index: 2;
+    padding: 10px;
+    color: white;         /* probably needed for visibility */
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 1.5rem;
+}
+.queue > .queue-list > .song_contents p {
+    margin: 0;
+    font-size: 25px;
+}
+/* HARD CODED TO MAKE THE FIRST QUEUE-LIST ITEM DISAPPEAR, MAY CHANGE LATER
+IF I GET LESS LAZY*/
+.queue > div:nth-of-type(3) {
+    display: none;
+}
+.queue>div:nth-of-type(4) {
+    position: relative;
+    border: 10px solid transparent;
+    /* 🟢 Thicker border area */
+    border-radius: 20px;
+    overflow: hidden;
+    z-index: 1;
+    /* Keeps child content above the animation */
+}
+
+.queue>div:nth-of-type(4)::before {
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 20px;
+    background: linear-gradient(270deg,
+            #009966,
+            #0080b3,
+            #0066b3,
+            #4400b3,
+            #660066,
+            #b3008a,
+            #b30066,
+            #b34700,
+            #b38f00,
+            #669900,
+            #003322,
+            #002233,
+            #001933,
+            #220044,
+            #330033,
+            #660044,
+            #660033,
+            #663300,
+            #665500,
+            #334400,
+            #009966);
+    background-size: 400% 400%;
+    animation: borderPulse 6s ease infinite;
+
+    /* 🛡️ Mask out the inside to only show the border */
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+
+    padding: 8px;
+    /* Same as border thickness */
+    z-index: -1;
+}
+
+@keyframes borderPulse {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.upvotes-container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 5px;
+    align-items: center;
+}
+.upvotes-container > button {
+    margin-left: auto;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    padding: 10px;
+}
+.upvotes-container > button:hover {
+  animation: heartbeat 2s ease-in-out 1;
+}
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  14% { transform: scale(1.3); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.3); }
+  70% { transform: scale(1); }
+}
+
+
+/* 📱 Mobile-friendly text scaling */
+@media screen and (max-width: 480px) {
+    body {
+        flex-direction: column;
+        padding: 0;
+        width: 95%;
+    }
+    .song_details h1 {
+        font-size: 1.1rem;
+    }
+    main {
+        height: 70vh;
+        width: 95%;
+    }
+    .queue {
+        width: 95%;
+    }
+
+    .button_controls > * {
+        font-size: 30px;
+    }
+
+    .queue > .song-search > .search-bar > .search-text {
+        font-size: 18px;
+    }
+
+    .song-search.expand {
+    height: 90vh;
+
+    .my-swal-font {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 5px;
+    }
+}
+}

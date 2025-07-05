@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link rel="stylesheet" href="player_style.css">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+    <!-- link for google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        
+    </header>
+
+    <main>
+        <div class="cover_art">
+            <img alt="cover_art" class="rotating"> <!-- src attribute will be added dynamically by JS -->
+        </div>
+
+        <div class="song_details">
+            <h1 class="song_name"></h1>
+            <h1 class="song_artist"></h1>
+            <audio id="current-audio"></audio>
+        </div>
+
+        <div class = "button_controls">
+            <button id="backward">⏮</button>
+            <button id="pause_play">▶</button>
+            <button id="forward">⏭</button>
+        </div>
+
+        <div class="progress_bar">
+            <div class="outer_cover">
+                <div class="progress_fill"></div>
+            </div>
+        </div>
+
+        <div class="timestamp">
+            <h1>0:00</h1>
+        </div>
+    </main>
+
+    <div class="queue">
+        <div class="queue-header">
+            <h1>Queue</h1>
+            <button class="search-button" alt="Search For Songs">
+                <i class="fa-solid fa-plus"></i>
+            </button>
+        </div>
+
+        <!-- appears only after plus button is clicked -->
+        <div class="song-search">
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" class="search-text" placeholder="what's on your mind?">
+            </div>
+            
+            <!-- The top 5 search results from the search query -->
+            <div class="search-results">
+                <!-- 5 divs will be added dynamically -->
+            </div>
+        </div>
+        
+
+        <!-- queue items start from div nth:of:type(4) -->
+        <!--sample queue div structure-->
+        <!-- we have hard coded the code below to not display, just look up for reference -->
+        <div class="queue-list">
+            <audio class="song-audio" src=""></audio>
+            <div class="background-img"></div>
+                <div class="song_contents">
+                    <span>
+                        <p class="title"></p>
+                        <p class="artist"></p>
+                    </span>
+                    <span>
+                        <div class="upvotes-container">
+                            <p class="upvotes"></p>
+                            <button><i class="fa-regular fa-heart" id="upvote-button"></i></button>
+                        </div>
+                        
+                    </span>
+            </div> 
+        </div>
+
+    </div>
+    <script src="player_script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>
