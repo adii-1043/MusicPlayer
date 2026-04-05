@@ -58,7 +58,7 @@ No additional setup needed!
 
 ---
 
-## 🌐 Deployment
+## Deployment
 
 You can deploy this project on:
 
@@ -84,8 +84,8 @@ You can deploy this project on:
 
 This project is licensed under a customized MIT License:
 
-✅ Free for **personal use**
-❌ Not allowed for **group, organizational, or public hosting purposes**
+Free for **personal use**
+Not allowed for **group, organizational, or public hosting purposes**
 
 See [`LICENSE`](https://github.com/adii-1043/MusicPlayer/blob/main/LICENSE) for details.
 
