@@ -11,3 +11,4 @@ print("NEW EDIT WHO DIS")
 print("HOPEFUL ON THE NEXT FEW PUSHES...")
 print("THIS SHOULD PRINT EVERYTHING TO THE CONSOLE")
 print("ANOTHER FIXING PUSH INCOMING")
+music = "Something just like this"
